@@ -1,1 +1,1 @@
-print("Hello World!")
+print(f"::set-output name=message::{num}")
