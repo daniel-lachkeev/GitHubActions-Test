@@ -1,0 +1,31 @@
+# action.yaml
+name: 'Custom GitHub Action'
+description: 'A GitHub Action that takes a message and prints it'
+inputs:
+	message:
+    description: 'Enter a message'
+    required: true
+    default: "Hello World!"
+outputs:
+  num_squared:
+    description: 'Message of the input'
+    # need to specify the extra `value` field for `composite` actions
+    value: ${{ steps.get-message.outputs.message }}
+runs:
+  using: 'composite'
+  steps:
+    - name: Install Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'  
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
+      shell: bash
+    - name: Pass Inputs to Shell
+      run: |
+              echo "INPUT_NUM=${{ inputs.message }}" >> $GITHUB_ENV
+      shell: bash
+    - name: Fetch the message
+      id: get-message
+      run: python test.py
+      shell: bash
