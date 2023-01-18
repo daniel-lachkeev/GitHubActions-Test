@@ -7,15 +7,15 @@ inputs:
     required: true
     default: "Hello World!"
 outputs:
-  num_squared:
+  message_printed:
     description: 'Message of the input'
     # need to specify the extra `value` field for `composite` actions
-    value: ${{ steps.get-message.outputs.message }}
+    value: ${{ steps.get-message.outputs.message_printed }}
 runs:
   using: 'composite'
   steps:
     - name: Install Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v4.5.0
       with:
         python-version: '3.10'  
     - name: Install Dependencies
