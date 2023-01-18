@@ -1,0 +1,21 @@
+# https://shipyard.build/blog/your-first-python-github-action/
+# .github/workflows/test_action.yaml
+name: Test Action
+on: [push]
+
+jobs:
+  print-message:
+    runs-on: ubuntu-latest
+    name: Prints a custom message
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Gets the custom message
+        id: get_message
+        uses: ./ # Uses an action in the root directory
+        # or use a released GitHub Action
+        # uses: shipyard/github-action/fetch-shipyard-env@1.0.0
+        with:
+          message: "Hello World!"
+      - name: Print the square
+        run: echo "${{ steps.get_message.outputs.message }}"
