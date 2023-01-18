@@ -1,1 +1,1 @@
-print(f"::set-output name=message::{num}")
+print(f"::set-output name=message::{message}")
